@@ -1,5 +1,5 @@
 
-package com.Question.Chapter2;
+package com.Questions.Chapter2;
 
 /**
  * Created by hkaunda on 11/26/17.

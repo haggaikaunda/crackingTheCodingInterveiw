@@ -1,5 +1,4 @@
-package com.Question.Chapter2;
-import com.Question.Chapter2.myLinkedList;
+package com.Questions.Chapter2;
 
 /**
  * Created by hkaunda on 11/26/17.
