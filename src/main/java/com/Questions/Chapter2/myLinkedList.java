@@ -1,12 +1,14 @@
 
 package com.Questions.Chapter2;
 
+import java.util.HashSet;
+
 /**
  * Created by hkaunda on 11/26/17.
  */
 public class myLinkedList<T> {
 
-    private Node head, tail;
+    Node head, tail;
     int size;
 
     public myLinkedList() {
@@ -64,20 +66,51 @@ public class myLinkedList<T> {
         public String toString() {
             return String.format("value : %s, next : %s", value, next);
         }
+
+        public boolean equals(Object o) {
+            if (o instanceof myLinkedList.Node) {
+                Node other = (myLinkedList.Node) o;
+                return other.value == this.value;
+            }
+            return false;
+        }
     }
 
 
     public static void main(String... args) {
-        myLinkedList<Integer> mylist = new myLinkedList<Integer>();
-        for (int i = 0; i < 10; mylist.add(i++));
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < 10; stringBuilder.append(String.format("%d ", mylist.get(i++))));
-        System.out.println(stringBuilder.toString());
+//        myLinkedList<Integer> mylist = new myLinkedList<Integer>();
+//        for (int i = 0; i < 10; mylist.add(i++));
+//        StringBuilder stringBuilder = new StringBuilder();
+//        for (int i = 0; i < 10; stringBuilder.append(String.format("%d ", mylist.get(i++))));
+//        System.out.println(stringBuilder.toString());
+
+        myLinkedList<Integer> linkedList = new myLinkedList<Integer>();
+        myLinkedList<Integer> list = new myLinkedList<Integer>();
+        for(int i = 0; i < 10; list.add(i), linkedList.add(i), linkedList.add(i++));
+        linkedList.removeDuplicates();
+        System.out.println(String.format("expected : %s \nactual   : %s", list.toString(), linkedList.toString()));
+        assert list.toString().equals(linkedList.toString());
     }
 
     // ******************* Questions from Cracking the coding interview on LinkedLists begin here. *********** //
 
-    void removeDuplicate(Node head) {
+    public void removeDuplicates() {
+        HashSet<T> set = new HashSet<>();
+        Node node = head;
+        if (node == null) {
+            return;
+        }
+        set.add(node.value);
+        Node lead = node.next;
+        while (lead != null) {
 
+            if (set.contains(lead.value)) {
+                node.next = lead.next;
+            } else {
+                set.add(lead.value);
+                node = lead;
+            }
+            lead = lead.next;
+        }
     }
 }
